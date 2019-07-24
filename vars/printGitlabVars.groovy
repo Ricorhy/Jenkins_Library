@@ -1,0 +1,32 @@
+/**
+ * For debugging purposes
+ */
+def call() {
+    println "gitlabBranch ${env.gitlabBranch}"
+    println "gitlabSourceBranch ${env.gitlabSourceBranch}"
+    println "gitlabActionType ${env.gitlabActionType}"
+    println "gitlabUserName ${env.gitlabUserName}"
+    println "gitlabUserEmail ${env.gitlabUserEmail}"
+    println "gitlabSourceRepoHomepage ${env.gitlabSourceRepoHomepage}"
+    println "gitlabSourceRepoName ${env.gitlabSourceRepoName}"
+    println "gitlabSourceNamespace ${env.gitlabSourceNamespace}"
+    println "gitlabSourceRepoURL ${env.gitlabSourceRepoURL}"
+    println "gitlabSourceRepoSshUrl ${env.gitlabSourceRepoSshUrl}"
+    println "gitlabSourceRepoHttpUrl ${env.gitlabSourceRepoHttpUrl}"
+    println "gitlabMergeRequestTitle ${env.gitlabMergeRequestTitle}"
+    println "gitlabMergeRequestDescription ${env.gitlabMergeRequestDescription}"
+    println "gitlabMergeRequestId ${env.gitlabMergeRequestId}"
+    println "gitMergeRequestState ${env.gitMergeRequestState}"
+    println "gitMergedByUser ${env.gitMergedByUser}"
+    println "gitMergeRequestAssignee ${env.gitMergeRequestAssignee}"
+    println "gitlabMergeRequestLastCommit ${env.gitlabMergeRequestLastCommit}"
+    println "gitlabMergeRequestTargetProjectId ${env.gitlabMergeRequestTargetProjectId}"
+    println "gitlabTargetBranch ${env.gitlabTargetBranch}"
+    println "gitlabTargetRepoName ${env.gitlabTargetRepoName}"
+    println "gitlabTargetNamespace ${env.gitlabTargetNamespace}"
+    println "gitlabTargetRepoSshUrl ${env.gitlabTargetRepoSshUrl}"
+    println "gitlabTargetRepoHttpUrl ${env.gitlabTargetRepoHttpUrl}"
+    println "gitlabBefore ${env.gitlabBefore}"
+    println "gitlabAfter ${env.gitlabAfter}"
+    println "gitlabTriggerPhrase ${env.gitlabTriggerPhrase}"
+}

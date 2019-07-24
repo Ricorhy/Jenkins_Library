@@ -1,0 +1,78 @@
+pipeline {
+
+    agent {
+        node {
+            label 'jdk-8u144'   
+        }
+    }
+    
+    post {
+        failure {
+            updateGitlabCommitStatus name: build, state: 'failed'
+        }
+        success {
+            updateGitlabCommitStatus name: build, state: 'success'
+        }
+    }
+    
+    stages {
+
+        stage('checkout') {
+            steps {
+                libsCheck()
+                deleteDir()
+                checkout scm
+                sh "git remote -v"
+                sh "printenv"
+            }
+        }
+        
+        /** 
+         * Runs mergeBuilder.groovy -> buildProject.groovy -> mavenPublish 'snapshots'
+         */ 
+        stage('snapshot build') {
+            when {
+                branch 'master'
+            }
+            steps {
+                echo "running snapshot build"
+                //mergeBuilder strategy: 'snapshot'
+            }
+        }
+  
+        /**
+         * Runs mergeBuilder.groovy -> buildProject.groovy -> mavenPublish 'releases'
+         * Calculates the version using getNextVersion.groovy
+         * Automated release tagging using gitTag.groovy
+         */
+        stage('release build') {
+            when {
+                branch 'release'
+            }
+            steps {
+                echo "running release build"
+                //mergeBuilder strategy: 'release'
+            }
+        }
+
+        /**
+         * It is expected to have two  
+         */
+        stage('sonarqube') { 
+            steps {
+                echo "running sonarqube"
+                //mavenSonarPublish()
+                
+            }
+        }
+
+        stage('deploy to dev') {
+            steps {
+                echo "deploying to dev"
+                //aemInstall properties: '-PautoInstallPackage'
+            }
+        }
+    
+    }
+ 
+}
