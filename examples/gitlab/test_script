@@ -1,0 +1,27 @@
+//test script from Kuya Ayyie 
+node {
+   // Mark the code checkout 'stage'....
+   stage 'Checkout'
+
+   // Get some code from a GitHub repository
+   checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'gitlab', url: 'http://3.220.177.193/gitlab/markyours/BasicTwo.git']]])
+   echo "Checking now....."
+
+   // Get the maven tool.
+   // ** NOTE: This 'M3' maven tool must be configured
+   // **       in the global configuration.           
+   def mvnHome = tool 'ADOP Maven'
+
+   // Mark the code build 'stage'....
+   stage 'Build'
+   // Run the maven build
+   sh "${mvnHome}/bin/mvn -Dmaven.test.failure.ignore clean package"
+   
+   stage 'Deploy'
+   // Run the maven build
+   sshagent(['ec2-user']) {
+		// Deploy to Tomcat
+		sh 'scp -o StrictHostKeyChecking=no **/*.war ec2-user@172.31.44.230:/tmp'
+		sh 'curl --upload-file **/*.war "http://admin:admin@3.220.177.193:9090/manager/text/deploy?path=/debug&update=true"'
+    }
+}
