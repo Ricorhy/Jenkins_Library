@@ -1,6 +1,7 @@
 # WORK IN PROGRESS!
 
 Please see https://jenkins.io/doc/book/pipeline/shared-libraries/
+And Read the Instructions Manual located in the Repo's Wiki for exmaples.
 
 ## Creating a Declarative method
 
